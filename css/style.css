@@ -229,3 +229,21 @@ button {
     font-size: 3em;
   }
 }
+
+@media screen and (orientation: landscape) {
+    header,
+    footer {
+      width: 1000px;
+      align-self: center;
+      margin: 10px;
+      box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
+    }
+
+    footer > a {
+        display: none;
+    }
+  
+    h1 {
+      font-size: 1em;
+    }   
+}
