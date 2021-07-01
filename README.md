@@ -1,2 +1,3 @@
-## The Odin Project Fundamentals
-## Project: Etch-a-Sketch
+[The Odin Project Foundations Course](https://www.theodinproject.com/paths/foundations)
+
+Project: Etch-a-Sketch
