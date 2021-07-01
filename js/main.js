@@ -1,39 +1,74 @@
-const container = document.getElementById('grid-container');
+const container = document.getElementById("grid-container");
+let gridColour = "black";
 
-const setSize = document.getElementById('set-size');
-setSize.addEventListener('click', () => {
-    console.log(pullSliderValue())
-    setGridSize(pullSliderValue());
+setGridSize(16);
+
+const setSize = document.getElementById("set-size");
+setSize.addEventListener("click", () => {
+  setGridZero();
+  setGridSize(pullSliderValue());
 });
 
+const reset = document.getElementById("reset");
+reset.addEventListener("click", () => {
+  setGridZero();
+  setGridSize(16);
+  document.getElementById("grid-size").value = 16;
+  document.getElementById("slider-value").value = 16;
+});
 
+const cellColourSelect = document.getElementsByClassName("item-color");
+Array.from(cellColourSelect).forEach(function (e) {
+  e.addEventListener("click", () => {
+    gridColour = e.id;
+  });
+});
+
+function randColor() {
+  return "#" + Math.floor(Math.random() * 16777215).toString(16);
+}
 
 function pushSliderVal(val) {
-    document.getElementById('slider-value').value=val;
+  document.getElementById("slider-value").value = val;
 }
 
 function pullSliderValue() {
-    return document.getElementById('slider-value').value
+  return document.getElementById("slider-value").value;
+}
+
+function setGridZero() {
+  while (container.firstChild) {
+    container.removeChild(container.lastChild);
+  }
+}
+
+function setGridColour(e) {
+  if (gridColour == "black") {
+    e.style["background-color"] = "#000";
+  } else if (gridColour == "erase") {
+    e.style["background-color"] = "#fff";
+  } else if (gridColour == "colour") {
+    e.style["background-color"] = randColor();
+  }
 }
 
 function setGridSize(size) {
-    let gridBody = document.createElement('div');
-    gridBody.classList.add('grid-body');
+  for (let i = 0; i < size; i++) {
+    let gridRow = document.createElement("div");
+    gridRow.classList.add("grid-row");
 
-    let gridRow = document.createElement('div');
-    gridRow.classList.add('grid-row');
-
-    let gridItem = document.createElement('div');
-    gridItem.classList.add('grid-item');
-
-    for(let i = 0; i < size; i++) {
-        for(let i = 0; i < size; i++){
-            gridRow.appendChild(gridItem);
-            console.log(gridRow);
-        }
-        gridBody.appendChild(gridRow);
+    for (let a = 0; a < size; a++) {
+      let gridItem = document.createElement("div");
+      gridItem.classList.add("grid-item");
+      gridRow.appendChild(gridItem);
     }
-    container.appendChild(gridBody);
+    container.appendChild(gridRow);
+  }
+
+  let gridItems = document.getElementsByClassName("grid-item");
+  Array.from(gridItems).forEach(function (e) {
+    e.addEventListener("mouseenter", () => {
+      setGridColour(e);
+    });
+  });
 }
-
-
